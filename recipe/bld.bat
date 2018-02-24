@@ -1,7 +1,7 @@
 mkdir build
 cd build
 
-cmake -G "NMake Makefiles" ^
+cmake -G "%CMAKE_GENERATOR%" ^
       -D RAPIDJSON_HAS_STDSTRING=ON ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -D RAPIDJSON_BUILD_TESTS=OFF ^
@@ -13,6 +13,6 @@ cmake -G "NMake Makefiles" ^
 
 if errorlevel 1 exit 1
 
-nmake install
+cmake --build . --config Release --target install
 
 if errorlevel 1 exit 1
