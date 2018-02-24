@@ -16,8 +16,8 @@ build:
 
 requirements:
   build:
-    - toolchain
     - cmake
+    - {{ compiler('cxx') }}
 
 test:
   commands:
