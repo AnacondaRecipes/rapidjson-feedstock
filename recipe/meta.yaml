@@ -30,15 +30,14 @@ test:
     - if exist %LIBRARY_PREFIX%\lib\cmake\RapidJSON\RapidJSONConfigVersion.cmake (exit 0) else (exit 1)  # [win]
 
 about:
-  home: http://rapidjson.org/
+  home: https://rapidjson.org/
   summary: A fast JSON parser/generator for C++ with both SAX/DOM style API
   license: MIT
   license_file: license.txt
   license_family: MIT
   summary: A fast JSON parser/generator for C++ with both SAX/DOM style API
   dev_url: https://github.com/miloyip/rapidjson
-  doc_url: http://rapidjson.org/
-  doc_source_url: https://github.com/miloyip/rapidjson/tree/master/doc
+  doc_url: https://rapidjson.org/
   description: |
     RapidJSON is a self-contained and header only parser/generator for C++, which
     supports both SAX and DOM style API, with no external dependencies such as
