@@ -1,0 +1,35 @@
+From 5ae3811f0ac503c6f3b774a1214bbec933bbb49e Mon Sep 17 00:00:00 2001
+From: Mikolaj Gralczyk <mgralczyk@anaconda.com>
+Date: Thu, 20 Nov 2025 13:57:40 +0100
+Subject: [PATCH] Increase CMake minimum required
+
+Compatibility with CMake < 3.5 has been removed from CMake's newer versions.
+This caused compilation errors. The fix comes from:
+https://github.com/Tencent/rapidjson/pull/2250
+
+Additionally, a policy for backward compatibility was added.
+---
+ CMakeLists.txt | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ceda71b1..b59f86cf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,10 +1,6 @@
+-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+-if(POLICY CMP0025)
+-  # detect Apple's Clang
+-  cmake_policy(SET CMP0025 NEW)
+-endif()
+-if(POLICY CMP0054)
+-  cmake_policy(SET CMP0054 NEW)
++CMAKE_MINIMUM_REQUIRED(VERSION 3.5...4.0)
++if(POLICY CMP0175)
++    cmake_policy(SET CMP0175 OLD)
+ endif()
+ 
+ SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
+-- 
+2.50.1 (Apple Git-155)
+
