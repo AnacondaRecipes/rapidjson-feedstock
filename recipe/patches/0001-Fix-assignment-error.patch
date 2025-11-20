@@ -1,0 +1,40 @@
+From dead384f1b8d69f63789c2e7967dbcd609527e55 Mon Sep 17 00:00:00 2001
+From: Mikolaj Gralczyk <mgralczyk@anaconda.com>
+Date: Wed, 19 Nov 2025 14:12:44 +0100
+Subject: [PATCH] Fix assignment error
+
+The problem appears with clang 20 and from gcc 14.
+The issue is described here:
+https://github.com/Tencent/rapidjson/issues/2277
+
+The fix comes from PR:
+https://github.com/Tencent/rapidjson/pull/719
+---
+ include/rapidjson/document.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/rapidjson/document.h b/include/rapidjson/document.h
+index e3e20dfb..19f5a6a5 100644
+--- a/include/rapidjson/document.h
++++ b/include/rapidjson/document.h
+@@ -316,8 +316,6 @@ struct GenericStringRef {
+ 
+     GenericStringRef(const GenericStringRef& rhs) : s(rhs.s), length(rhs.length) {}
+ 
+-    GenericStringRef& operator=(const GenericStringRef& rhs) { s = rhs.s; length = rhs.length; }
+-
+     //! implicit conversion to plain CharType pointer
+     operator const Ch *() const { return s; }
+ 
+@@ -328,6 +326,8 @@ private:
+     //! Disallow construction from non-const array
+     template<SizeType N>
+     GenericStringRef(CharType (&str)[N]) /* = delete */;
++    //! Copy assignment operator not permitted - immutable type
++    GenericStringRef& operator=(const GenericStringRef& rhs) /* = delete */;
+ };
+ 
+ //! Mark a character pointer as constant string
+-- 
+2.50.1 (Apple Git-155)
+
